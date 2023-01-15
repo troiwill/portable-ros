@@ -4,7 +4,7 @@
 
 This repository contains instructions for setting up ROS on Linux and Mac OS using conda. The instructions were derived from [Robostack](https://robostack.github.io/index.html). The setup script creates a conda environment for ROS Noetic Desktop. We recommend that you create a copy of this conda environment for your projects and add any additional (conda or ROS) packages you require for your project.
 
-This script has been tested on Mac OS X (M1) hosts.
+This script has been tested on Mac OS X (Intel and M1) hosts.
 
 ## Setup
 
