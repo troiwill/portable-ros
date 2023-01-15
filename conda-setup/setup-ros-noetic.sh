@@ -19,11 +19,11 @@ conda install -y mamba -c conda-forge || exit_on_error
 
 # Create the base environment for ROS.
 echo "Create the base environment for ROS ${ROS_DISTRO}."
-mamba create -n ${CONDA_ROS_BASE_ENV} -y python=3.9
-conda activate ${CONDA_ROS_BASE_ENV}
-conda config --env --add channels conda-forge
-conda config --env --add channels robostack
-conda config --env --add channels robostack-experimental
+mamba create -n ${CONDA_ROS_BASE_ENV} -y python=3.9 || exit_on_error
+conda activate ${CONDA_ROS_BASE_ENV} || exit_on_error
+conda config --env --add channels conda-forge || exit_on_error
+conda config --env --add channels robostack || exit_on_error
+conda config --env --add channels robostack-experimental || exit_on_error
 mamba install -y ros-noetic-desktop || exit_on_error
 
 mamba install -y compilers cmake pkg-config make ninja || exit_on_error
