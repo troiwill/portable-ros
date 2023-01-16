@@ -3,6 +3,7 @@
 CONDA_INSTALL_DIR=$(conda info | grep -i 'base environment' | grep -Eo '(/[a-zA-Z0-9]+)+')
 ROS_DISTRO="noetic"
 CONDA_ROS_BASE_ENV="ros-${ROS_DISTRO}"
+INSTALLED_ROS_FULL=0
 
 exit_on_error() {
     echo "failed."
@@ -24,7 +25,26 @@ conda activate ${CONDA_ROS_BASE_ENV} || exit_on_error
 conda config --env --add channels conda-forge || exit_on_error
 conda config --env --add channels robostack || exit_on_error
 conda config --env --add channels robostack-experimental || exit_on_error
-mamba install -y ros-noetic-desktop || exit_on_error
+mamba install -y ros-noetic-desktop-full && INSTALLED_ROS_FULL=1
+if [ $INSTALLED_ROS_FULL -eq 0 ]
+then
+    echo ""
+    echo "Failed to install ros-noetic-desktop-full. Trying ros-noetic-desktop instead."
+    mamba install -y ros-noetic-desktop
+    if [ $? -eq 0 ]
+    then
+        echo ""
+        echo "Failed to install ros-noetic-desktop too?! Exiting script and removing environment."
+        conda deactivate
+        conda env remove --name ${CONDA_ROS_BASE_ENV}
+        echo ""
+        echo "Done!"
+        exit 1
+    fi
+else
+    echo ""
+    echo "Successfully installed ros-noetic-desktop-full!"
+fi
 
 mamba install -y compilers cmake pkg-config make ninja || exit_on_error
 mamba install -y catkin_tools || exit_on_error
@@ -44,6 +64,7 @@ conda activate ${CONDA_ROS_BASE_ENV} || exit_on_error
 mamba install -y rosdep || exit_on_error
 rosdep init || exit_on_error
 rosdep update || exit_on_error
+conda deactivate
 
 echo ""
 echo ""
