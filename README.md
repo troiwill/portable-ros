@@ -10,6 +10,8 @@ This script has been tested on Mac OS X (Intel and M1) hosts.
 
 Follow the instructions below to create the ROS conda environment. **Note** that we assume you already installed [anaconda](https://www.anaconda.com) or [miniconda](https://docs.conda.io/en/latest/miniconda.html) on your system.
 
+### Step-by-Step Install
+
 To run the setup script in `conda-setup`, run the following lines:
 ```
 # NOTE: We assume you're in the directory for this repository.
@@ -29,3 +31,10 @@ You can clone this environment using the following command:
 conda create --name ros-noetic-clone --clone ros-noetic
 ```
 You should substitute the name `ros-noetic-clone` for a name you like. For example, you can name the clone the name of your current ROS project.
+
+### Setup One-Liner
+
+To install ROS Noetic via conda in one line, use the following command:
+```
+curl -s https://raw.githubusercontent.com/troiwill/portable-ros/noetic/conda-setup/setup-ros-noetic.sh | bash
+```
